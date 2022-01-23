@@ -4,12 +4,10 @@ import Sidebar from '../components/Sidebar';
 
 export default function Home() {
   return (
-    <div className="">
+    <div>
       <Head>
         <title>spotify-clone</title>
       </Head>
-
-      <h1>This is a spotify-clone build!</h1>
 
       <main>
         <Sidebar />
