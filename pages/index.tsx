@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import Sidebar from '../components/Sidebar';
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
       <h1>This is a spotify-clone build!</h1>
 
       <main>
-        {/* Sidebar */}
+        <Sidebar />
         {/* Center */}
       </main>
 
