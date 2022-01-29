@@ -3,7 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["plugin:@typescript-eslint/recommended", "next", "prettier"],
+  "extends": ["next", "prettier"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -14,6 +14,7 @@
   },
   "plugins": ["react", "@typescript-eslint", "prettier", "tailwindcss"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "no-unused-vars": "warn"
   }
 }
