@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Sidebar from 'components/Sidebar';
 
 const Home = () => (
-  <div>
+  <div className="h-screen overflow-hidden bg-black">
     <Head>
       <title>spotify-clone</title>
     </Head>
