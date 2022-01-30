@@ -41,8 +41,6 @@ export default NextAuth({
   },
   callbacks: {
     async jwt({ token, account, user }) {
-      const accessTokenExpires = (account?.expires_at as number) * 1000;
-
       // When initial sign in
       if (account && user) {
         return {
@@ -50,12 +48,12 @@ export default NextAuth({
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
           username: account.providerAccountId,
-          accessTokenExpires,
+          accessTokenExpires: (account?.expires_at as number) * 1000,
         };
       }
 
       // Return previous token if the access token has not expired yet
-      if (Date.now() < accessTokenExpires) {
+      if (token.accessTokenExpires && Date.now() < token.accessTokenExpires) {
         console.log('Existing access token is valid');
         return token;
       }
