@@ -25,7 +25,7 @@ const Center = () => {
   return (
     <div className="flex-grow">
       <header className="absolute top-5 right-8">
-        <div className="flex items-center space-x-3 rounded-full bg-black p-1 pr-4 text-white opacity-90 hover:cursor-pointer hover:opacity-80">
+        <div className="flex items-center space-x-3 rounded-full bg-black bg-opacity-70 p-1 pr-4 text-white hover:cursor-pointer hover:bg-opacity-80">
           <img className="h-10 w-10 rounded-full" src={session?.user.image} alt="Profile picture" />
           <p>{session?.user.name}</p>
           <ChevronDownIcon className="h-5 w-5" />
