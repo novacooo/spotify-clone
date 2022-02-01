@@ -13,8 +13,6 @@ import { signOut, useSession } from 'next-auth/react';
 const Sidebar = () => {
   const { data: session, status } = useSession();
 
-  console.log(session, status);
-
   return (
     <div className="border-r border-gray-900 p-5 text-sm text-gray-500">
       <div className="space-y-4">
