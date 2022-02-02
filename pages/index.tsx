@@ -4,6 +4,7 @@ import Sidebar from '@components/Sidebar';
 import Center from '@components/Center';
 import { getSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next';
+import Player from '@components/Player';
 
 const Home = () => (
   <div className="h-screen overflow-hidden bg-black">
@@ -16,7 +17,9 @@ const Home = () => (
       <Center />
     </main>
 
-    <div>{/* Player */}</div>
+    <div className="sticky bottom-0">
+      <Player />
+    </div>
   </div>
 );
 
