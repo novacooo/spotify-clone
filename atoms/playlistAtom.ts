@@ -7,5 +7,5 @@ export const playlistState = atom({
 
 export const playlistIdState = atom({
   key: 'playlistIdState',
-  default: '4LnTQT9pZuyXG96WS9RNzU',
+  default: '37i9dQZEVXbMDoHDwVN2tF', // Top 50 - Global
 });

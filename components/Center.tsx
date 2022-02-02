@@ -5,6 +5,7 @@ import { shuffle } from 'lodash';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { playlistIdState, playlistState } from 'atoms/playlistAtom';
 import useSpotify from 'hooks/useSpotify';
+import Songs from '@components/Songs';
 
 const colors = [
   'from-indigo-500',
@@ -59,11 +60,24 @@ const Center = () => {
           </div>
         )}
       </header>
+
       <section
         className={`flex h-80 items-end space-x-7 bg-gradient-to-b ${color} to-black text-white`}
       >
-        {/* <img src="" alt="" /> */}
+        <img
+          className="h-44 w-44 shadow-2xl"
+          src={playlist?.images[0].url}
+          alt="Playlist picture"
+        />
+        <div>
+          <p className="mb-2 text-xs md:text-sm xl:text-base">PLAYLIST</p>
+          <h1 className="text-2xl font-bold md:text-3xl xl:text-5xl">{playlist?.name}</h1>
+        </div>
       </section>
+
+      <div>
+        <Songs />
+      </div>
     </div>
   );
 };
