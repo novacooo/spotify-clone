@@ -5,7 +5,9 @@ import {
   ReplyIcon,
   RewindIcon,
   SwitchHorizontalIcon,
+  VolumeUpIcon,
 } from '@heroicons/react/solid';
+import { VolumeUpIcon as VolumeDownIcon } from '@heroicons/react/outline';
 import { currentTrackIdState, isPlayingState } from 'atoms/songAtom';
 import useSongInfo from 'hooks/useSongInfo';
 import useSpotify from 'hooks/useSpotify';
@@ -35,7 +37,7 @@ const Player = () => {
 
   const handlePlayPause = () => {
     spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
-      if (body.is_playing) {
+      if (body?.is_playing) {
         spotifyApi.pause();
         setIsPlaying(false);
       } else {
@@ -80,6 +82,20 @@ const Player = () => {
 
         <FastForwardIcon className="player-button" />
         <ReplyIcon className="player-button" />
+      </div>
+
+      {/* Right */}
+      <div className="flex items-center justify-end space-x-3 pr-5 md:space-x-4">
+        <VolumeDownIcon className="player-button" />
+        <input
+          className="h-1 w-14 cursor-ew-resize md:w-28"
+          type="range"
+          value={volume}
+          min={0}
+          max={100}
+          step={1}
+        />
+        <VolumeUpIcon className="player-button" />
       </div>
     </div>
   );
