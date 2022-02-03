@@ -9,7 +9,7 @@ interface ILoginProps {
 }
 
 const Login = ({ providers }: ILoginProps) => (
-  <div className="flex h-screen w-full flex-col items-center justify-center bg-gradient-to-b from-black to-[#18d860]/10">
+  <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-b from-black to-[#18d860]/10">
     <Head>
       <title>Spotify Player - Login</title>
     </Head>

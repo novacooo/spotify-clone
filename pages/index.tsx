@@ -7,12 +7,12 @@ import { GetServerSideProps } from 'next';
 import Player from '@components/Player';
 
 const Home = () => (
-  <div className="h-screen overflow-hidden bg-black">
+  <div className="h-full overflow-hidden bg-black">
     <Head>
       <title>Spotify Player by novaco</title>
     </Head>
 
-    <main className="flex">
+    <main className="flex h-full">
       <Sidebar />
       <Center />
     </main>
