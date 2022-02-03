@@ -18,9 +18,11 @@ const Song = ({ track, order }: ISongProps) => {
     setCurrentTrackId(track.id);
     setIsPlaying(true);
 
-    spotifyApi.play({
-      uris: [track.uri],
-    });
+    spotifyApi
+      .play({
+        uris: [track.uri],
+      })
+      .catch((err) => alert(err));
   };
 
   return (
