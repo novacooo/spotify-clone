@@ -35,7 +35,7 @@ const Song = ({ track, order }: ISongProps) => {
         <img className="h-10 w-10" src={track.album.images[0].url} alt="Track picture" />
         <div>
           <p className="w-36 truncate text-white lg:w-64">{track.name}</p>
-          <p className="w-40">{track.artists[0].name}</p>
+          <p className="w-40 truncate">{track.artists[0].name}</p>
         </div>
       </div>
 

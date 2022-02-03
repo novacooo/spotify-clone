@@ -7,3 +7,9 @@
 body {
   background-color: black;
 }
+
+@layer components {
+  .player-button {
+    @apply h-5 w-5 transform cursor-pointer transition duration-100 ease-out hover:scale-125 drop-shadow-md;
+  }
+}
