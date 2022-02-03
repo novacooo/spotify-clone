@@ -12,15 +12,16 @@ import { currentTrackIdState, isPlayingState } from 'atoms/songAtom';
 import useSongInfo from 'hooks/useSongInfo';
 import useSpotify from 'hooks/useSpotify';
 import { useSession } from 'next-auth/react';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { debounce } from 'lodash';
 
 const Player = () => {
   const spotifyApi = useSpotify();
   const { data: session } = useSession();
   const currentTrackId = useRecoilValue(currentTrackIdState);
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
-  const [volume, setVolume] = useState(50);
+  const [volume, setVolume] = useState<number>(50);
   const songInfo = useSongInfo();
 
   const handleError = (e: any) => {
@@ -54,11 +55,25 @@ const Player = () => {
       .catch((e) => handleError(e));
   };
 
+  const debouncedAdjustVolume = useCallback(
+    debounce((volume) => {
+      spotifyApi.setVolume(volume).catch((e) => console.log(e));
+    }, 300),
+    [],
+  );
+
   useEffect(() => {
     if (spotifyApi.getAccessToken() && !currentTrackId) {
       setVolume(80);
+      debouncedAdjustVolume(volume);
     }
   }, [currentTrackId, spotifyApi, session]);
+
+  useEffect(() => {
+    if (volume > 0 && volume < 100) {
+      debouncedAdjustVolume(volume);
+    }
+  }, [volume]);
 
   const transition = songInfo ? 'translate-y-0 opacity-100' : 'translate-y-1/2 opacity-0';
 
@@ -100,15 +115,27 @@ const Player = () => {
       <div
         className={`flex items-center justify-end space-x-3 pr-5 transition duration-1000 ${transition} md:space-x-4`}
       >
-        <VolumeDownIcon className="player-button" />
+        <VolumeDownIcon
+          onClick={() =>
+            volume !== 0 && setVolume((prevVolume) => (prevVolume > 10 ? prevVolume - 10 : 0))
+          }
+          className="player-button"
+        />
         <input
           className="h-1 w-14 cursor-ew-resize md:w-28"
           type="range"
+          value={volume}
           min={0}
           max={100}
           step={1}
+          onChange={(e) => setVolume(Number(e.target.value))}
         />
-        <VolumeUpIcon className="player-button" />
+        <VolumeUpIcon
+          onClick={() =>
+            volume !== 100 && setVolume((prevVolume) => (prevVolume < 90 ? prevVolume + 10 : 100))
+          }
+          className="player-button"
+        />
       </div>
     </div>
   );
