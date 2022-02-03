@@ -55,7 +55,7 @@ const Center = () => {
           >
             <img className="h-9 w-9 rounded-full" src={session.user.image} alt="Profile picture" />
             <p className="text-sm">{session.user.name}</p>
-            <LogoutIcon className="h-5 w-5" />
+            <LogoutIcon className="h-4 w-4" />
           </div>
         )}
       </header>
