@@ -11,7 +11,7 @@ import {
   SearchIcon,
 } from '@heroicons/react/outline';
 import { useSession } from 'next-auth/react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import useSpotify from 'hooks/useSpotify';
 import { playlistIdState } from 'atoms/playlistAtom';
 
@@ -19,7 +19,7 @@ const Sidebar = () => {
   const spotifyApi = useSpotify();
   const { data: session } = useSession();
   const [playlists, setPlaylists] = useState<any>([]);
-  const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
+  const setPlaylistId = useSetRecoilState(playlistIdState);
 
   useEffect(() => {
     if (spotifyApi.getAccessToken()) {

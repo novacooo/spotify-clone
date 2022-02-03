@@ -46,7 +46,7 @@ const Center = () => {
   }, [spotifyApi, playlistId]);
 
   return (
-    <div className="h-screen flex-grow overflow-y-scroll scrollbar-hide">
+    <div className="relative h-screen flex-grow overflow-y-scroll scrollbar-hide">
       <header className="absolute top-5 right-8">
         {session && (
           <div

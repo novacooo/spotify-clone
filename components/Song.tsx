@@ -2,7 +2,7 @@ import { millisToMinutesAndSeconds } from '@lib/time';
 import { currentTrackIdState, isPlayingState } from 'atoms/songAtom';
 import useSpotify from 'hooks/useSpotify';
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 interface ISongProps {
   track: any;
@@ -11,18 +11,25 @@ interface ISongProps {
 
 const Song = ({ track, order }: ISongProps) => {
   const spotifyApi = useSpotify();
-  const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState);
-  const [isPLaying, setIsPlaying] = useRecoilState(isPlayingState);
+  const setCurrentTrackId = useSetRecoilState(currentTrackIdState);
+  const setIsPlaying = useSetRecoilState(isPlayingState);
 
   const playSong = () => {
-    setCurrentTrackId(track.id);
-    setIsPlaying(true);
-
     spotifyApi
       .play({
         uris: [track.uri],
       })
-      .catch((err) => alert(err));
+      .then(() => {
+        setCurrentTrackId(track.id);
+        setIsPlaying(true);
+      })
+      .catch((e) => {
+        if (e.name === 'WebapiPlayerError') {
+          alert('You must have the Spotify app turned on on some device!');
+        } else {
+          console.log(e);
+        }
+      });
   };
 
   return (

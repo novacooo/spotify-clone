@@ -35,16 +35,35 @@ const Player = () => {
     }
   };
 
+  const handleError = (e: any) => {
+    if (e.name === 'WebapiPlayerError') {
+      alert('You must have the Spotify app turned on on some device!');
+    } else {
+      console.log(e);
+    }
+  };
+
   const handlePlayPause = () => {
-    spotifyApi.getMyCurrentPlaybackState().then(({ body }) => {
-      if (body?.is_playing) {
-        spotifyApi.pause();
-        setIsPlaying(false);
-      } else {
-        spotifyApi.play();
-        setIsPlaying(true);
-      }
-    });
+    spotifyApi
+      .getMyCurrentPlaybackState()
+      .then(({ body }) => {
+        if (body?.is_playing) {
+          spotifyApi
+            .pause()
+            .then(() => {
+              setIsPlaying(false);
+            })
+            .catch((e) => handleError(e));
+        } else {
+          spotifyApi
+            .play()
+            .then(() => {
+              setIsPlaying(true);
+            })
+            .catch((e) => handleError(e));
+        }
+      })
+      .catch((e) => handleError(e));
   };
 
   useEffect(() => {
@@ -60,12 +79,14 @@ const Player = () => {
       <div className="mr-6 flex items-center space-x-4 md:mr-10 lg:mr-12">
         <img
           className="hidden h-12 w-12 drop-shadow-lg md:inline lg:h-14 lg:w-14"
-          src={songInfo?.album?.images?.[0]?.url}
+          src={songInfo ? songInfo.album?.images?.[0]?.url : 'https://placekitten.com/100/100'}
           alt="Song picture"
         />
         <div className="overflow-hidden">
-          <h3 className="truncate">{songInfo?.name}</h3>
-          <p className="truncate text-gray-500 md:text-sm">{songInfo?.artists?.[0]?.name}</p>
+          <h3 className="truncate">{songInfo ? songInfo.name : 'Song name'}</h3>
+          <p className="truncate text-gray-500 md:text-sm">
+            {songInfo ? songInfo.artists?.[0]?.name : 'Artist name'}
+          </p>
         </div>
       </div>
 
