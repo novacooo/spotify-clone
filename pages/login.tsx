@@ -2,6 +2,7 @@ import React from 'react';
 import { ClientSafeProvider, getProviders, LiteralUnion, signIn } from 'next-auth/react';
 import { BuiltInProviderType } from 'next-auth/providers';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 
 interface ILoginProps {
   providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null;
@@ -9,6 +10,9 @@ interface ILoginProps {
 
 const Login = ({ providers }: ILoginProps) => (
   <div className="flex h-screen w-full flex-col items-center justify-center bg-gradient-to-b from-black to-[#18d860]/10">
+    <Head>
+      <title>Spotify Player - Login</title>
+    </Head>
     <img
       className="mb-12 h-32 w-32 md:mb-16 md:h-40 md:w-40"
       src="https://links.papareact.com/9xl"

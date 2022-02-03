@@ -9,7 +9,7 @@ import Player from '@components/Player';
 const Home = () => (
   <div className="h-screen overflow-hidden bg-black">
     <Head>
-      <title>spotify-clone</title>
+      <title>Spotify Player by novaco</title>
     </Head>
 
     <main className="flex">
