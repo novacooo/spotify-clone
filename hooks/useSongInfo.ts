@@ -1,28 +1,45 @@
-import { currentTrackIdState } from 'atoms/songAtom';
+import { currentTrackIdState, isPlayingState } from 'atoms/songAtom';
+import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import useSpotify from './useSpotify';
 
 const useSongInfo = () => {
   const spotifyApi = useSpotify();
-  const currentTrackId = useRecoilValue(currentTrackIdState);
+  const { data: session } = useSession();
+  const [currentTrackId, setCurrentTrackId] = useRecoilState<any>(currentTrackIdState);
+  const setIsPlaying = useSetRecoilState(isPlayingState);
   const [songInfo, setSongInfo] = useState<any>(null);
 
+  const fetchSongInfo = async () => {
+    if (spotifyApi.getAccessToken()) {
+      spotifyApi
+        .getMyCurrentPlayingTrack()
+        .then(async ({ body }) => {
+          if (body) {
+            const trackId = body.item?.id as string;
+            const trackInfo = await spotifyApi.getTrack(trackId);
+
+            setCurrentTrackId(trackId);
+            setIsPlaying(body.is_playing);
+            setSongInfo(trackInfo.body);
+          } else {
+            setSongInfo(null);
+          }
+        })
+        .catch((e) => console.log(e));
+    }
+  };
+
   useEffect(() => {
-    const fetchSongInfo = async () => {
-      if (currentTrackId) {
-        const trackInfo = await fetch(`https://api.spotify.com/v1/tracks/${currentTrackId}`, {
-          headers: {
-            Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
-          },
-        }).then((res) => res.json());
-
-        setSongInfo(trackInfo);
-      }
-    };
-
     fetchSongInfo();
-  }, [currentTrackId, spotifyApi]);
+  }, [currentTrackId, spotifyApi, session]);
+
+  // Check for song info every second
+  useEffect(() => {
+    const fetchInterval = setInterval(fetchSongInfo, 1000);
+    return () => clearInterval(fetchInterval);
+  });
 
   return songInfo;
 };

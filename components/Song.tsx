@@ -34,11 +34,11 @@ const Song = ({ track, order }: ISongProps) => {
 
   return (
     <div
-      className="grid cursor-pointer grid-cols-2 rounded-md py-2 px-5 text-gray-500 hover:bg-gray-900"
+      className="grid cursor-pointer grid-cols-2 rounded-md border border-black py-2 px-5 text-gray-500 hover:border-gray-800 hover:bg-gray-900/70"
       onClick={playSong}
     >
       <div className="flex items-center space-x-4">
-        <p>{order + 1}</p>
+        <p className="w-4">{order + 1}</p>
         <img className="h-10 w-10" src={track.album.images[0].url} alt="Track picture" />
         <div>
           <p className="w-36 truncate text-white lg:w-64">{track.name}</p>

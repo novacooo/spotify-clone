@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
-import { ChevronDownIcon } from '@heroicons/react/outline';
+import { LogoutIcon } from '@heroicons/react/outline';
 import { shuffle } from 'lodash';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { playlistIdState, playlistState } from 'atoms/playlistAtom';
@@ -55,7 +55,7 @@ const Center = () => {
           >
             <img className="h-9 w-9 rounded-full" src={session.user.image} alt="Profile picture" />
             <p className="text-sm">{session.user.name}</p>
-            <ChevronDownIcon className="h-4 w-4" />
+            <LogoutIcon className="h-5 w-5" />
           </div>
         )}
       </header>
