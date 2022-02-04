@@ -97,7 +97,9 @@ const Player = () => {
       </div>
 
       {/* Center */}
-      <div className={`flex items-center justify-evenly transition duration-1000 ${transition}`}>
+      <div
+        className={`col-span-2 flex items-center justify-evenly transition duration-1000 md:col-auto ${transition}`}
+      >
         <SwitchHorizontalIcon className="player-button" />
         <RewindIcon className="player-button" />
 
@@ -113,7 +115,7 @@ const Player = () => {
 
       {/* Right */}
       <div
-        className={`flex items-center justify-end space-x-3 pr-5 transition duration-1000 ${transition} md:space-x-4`}
+        className={`hidden items-center justify-end space-x-3 pr-5 transition duration-1000 md:flex ${transition} md:space-x-4`}
       >
         <VolumeDownIcon
           onClick={() =>

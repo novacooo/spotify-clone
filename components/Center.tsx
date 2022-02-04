@@ -47,15 +47,15 @@ const Center = () => {
 
   return (
     <div className="relative h-full flex-grow overflow-y-scroll scrollbar-hide">
-      <header className="absolute top-5 right-8">
+      <header className="absolute top-5 right-1/2 translate-x-1/2 md:right-8 md:translate-x-0">
         {session && (
           <div
             className="flex items-center space-x-3 rounded-full bg-black bg-opacity-70 p-1 pr-4 text-white hover:cursor-pointer hover:bg-opacity-80"
             onClick={() => signOut()}
           >
             <img className="h-9 w-9 rounded-full" src={session.user.image} alt="Profile picture" />
-            <p className="text-sm">{session.user.name}</p>
-            <LogoutIcon className="h-4 w-4" />
+            <p className="truncate text-sm">{session.user.name}</p>
+            <LogoutIcon className="h-4 min-h-fit w-4 min-w-fit" />
           </div>
         )}
       </header>
